@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>네이버 블로그 SEO 작가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #141416;
+    --surface2: #1c1c1f;
+    --border: #2a2a2e;
+    --accent: #00e5a0;
+    --accent2: #0099ff;
+    --text: #e8e8ea;
+    --text-muted: #6b6b72;
+    --text-dim: #3d3d42;
+    --danger: #ff4757;
+    --warning: #ffa502;
+    --radius: 12px;
+    --font-sans: 'Noto Sans KR', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+  }
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--text-muted); }
+  .badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: rgba(0,229,160,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.3);
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+  }
+
+  /* Layout */
+  .app {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 10px;
+  }
+
+  .input-group { display: flex; flex-direction: column; gap: 8px; }
+  .input-group label { font-size: 12px; color: var(--text-muted); }
+  .input-group input, .input-group select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .input-group input:focus, .input-group select:focus {
+    border-color: var(--accent);
+  }
+  .input-group input::placeholder { color: var(--text-dim); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .dot.green { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  .dot.red { background: var(--danger); }
+
+  .save-btn {
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.3);
+    color: var(--accent);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .save-btn:hover {
+    background: rgba(0,229,160,0.2);
+    border-color: var(--accent);
+  }
+
+  /* Main chat area */
+  .main {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Welcome screen */
+  .welcome {
+    margin: auto;
+    text-align: center;
+    max-width: 480px;
+    padding: 40px 0;
+  }
+  .welcome h2 {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .welcome h2 em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .welcome p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .flow-steps {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .flow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .flow-step .num {
+    background: var(--accent);
+    color: var(--bg);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+  .arrow-icon { color: var(--text-dim); font-size: 16px; }
+  .sample-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .sample-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sample-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,160,0.06);
+  }
+
+  /* Messages */
+  .message { display: flex; flex-direction: column; gap: 8px; max-width: 800px; }
+  .message.user { align-self: flex-end; align-items: flex-end; }
+  .message.assistant { align-self: flex-start; align-items: flex-start; }
+
+  .msg-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    padding: 0 4px;
+  }
+
+  .msg-bubble {
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .message.user .msg-bubble {
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.2);
+    color: var(--text);
+    border-bottom-right-radius: 4px;
+  }
+  .message.assistant .msg-bubble {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-bottom-left-radius: 4px;
+    max-width: 760px;
+  }
+
+  /* Progress steps */
+  .progress-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 480px;
+  }
+  .progress-title {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+  }
+  .progress-steps { display: flex; flex-direction: column; gap: 10px; }
+  .prog-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: color 0.3s;
+  }
+  .prog-step.done { color: var(--accent); }
+  .prog-step.active { color: var(--text); }
+  .prog-step.error { color: var(--danger); }
+  .step-icon {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--text-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    transition: all 0.3s;
+  }
+  .prog-step.done .step-icon {
+    border-color: var(--accent);
+    background: rgba(0,229,160,0.15);
+    color: var(--accent);
+  }
+  .prog-step.active .step-icon {
+    border-color: var(--accent2);
+    background: rgba(0,153,255,0.1);
+    color: var(--accent2);
+    animation: pulse-blue 1.5s infinite;
+  }
+  .prog-step.error .step-icon {
+    border-color: var(--danger);
+    background: rgba(255,71,87,0.1);
+    color: var(--danger);
+  }
+  @keyframes pulse-blue {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* SEO Article output */
+  .seo-output {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 760px;
+    width: 100%;
+  }
+  .seo-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .seo-toolbar-left {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .seo-toolbar-left .dot { width: 8px; height: 8px; }
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-mono);
+  }
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .seo-content {
+    padding: 24px 28px;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text);
+    max-height: 600px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  .seo-content h1 { font-size: 20px; color: var(--accent); margin-bottom: 16px; font-weight: 700; }
+  .seo-content h2 { font-size: 16px; color: var(--accent2); margin: 20px 0 10px; font-weight: 500; border-left: 3px solid var(--accent2); padding-left: 10px; }
+  .seo-content h3 { font-size: 14px; color: var(--warning); margin: 16px 0 8px; font-weight: 500; }
+  .seo-content p { margin-bottom: 12px; }
+  .seo-content ul { padding-left: 20px; margin-bottom: 12px; }
+  .seo-content li { margin-bottom: 6px; }
+  .seo-content strong { color: #ffffff; font-weight: 700; }
+
+  .seo-meta {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+  }
+  .meta-pill.green { background: rgba(0,229,160,0.1); color: var(--accent); border: 1px solid rgba(0,229,160,0.2); }
+  .meta-pill.blue { background: rgba(0,153,255,0.1); color: var(--accent2); border: 1px solid rgba(0,153,255,0.2); }
+  .meta-pill.orange { background: rgba(255,165,2,0.1); color: var(--warning); border: 1px solid rgba(255,165,2,0.2); }
+
+  /* Source list */
+  .sources-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    max-width: 480px;
+  }
+  .sources-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .source-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .source-item:last-child { border-bottom: none; }
+  .source-num {
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .source-title { color: var(--text); line-height: 1.4; }
+  .source-url { color: var(--text-dim); font-size: 11px; margin-top: 2px; word-break: break-all; }
+
+  /* Input area */
+  .input-area {
+    padding: 20px 32px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .input-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .topic-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .topic-input:focus { border-color: var(--accent); }
+  .topic-input::placeholder { color: var(--text-dim); }
+  .send-btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .send-btn:hover:not(:disabled) {
+    background: #00ffb3;
+    transform: translateY(-1px);
+  }
+  .send-btn:disabled {
+    background: var(--text-dim);
+    cursor: not-allowed;
+    transform: none;
+  }
+  .input-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-family: var(--font-mono);
+  }
+
+  /* Error */
+  .error-msg {
+    background: rgba(255,71,87,0.08);
+    border: 1px solid rgba(255,71,87,0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--danger);
+    max-width: 480px;
+  }
+
+  /* API Key notice */
+  .api-notice {
+    background: rgba(255,165,2,0.06);
+    border: 1px solid rgba(255,165,2,0.2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--warning);
+    line-height: 1.6;
+  }
+  .api-notice a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    padding: 10px 16px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(0,229,160,0.04);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">BLOG<span>·</span>SEO</div>
+  <div class="badge">NAVER × CLAUDE</div>
+</header>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="section-label">API 설정</div>
+
+      <div class="input-group">
+        <label>Naver Client ID</label>
+        <input type="text" id="naverClientId" placeholder="네이버 Client ID" autocomplete="off">
+      </div>
+      <div class="input-group" style="margin-top:10px">
+        <label>Naver Client Secret</label>
+        <input type="password" id="naverClientSecret" placeholder="네이버 Client Secret" autocomplete="off">
+      </div>
+      <div class="input-group" style="margin-top:10px">
+        <label>Anthropic API Key</label>
+        <input type="password" id="anthropicKey" placeholder="sk-ant-..." autocomplete="off">
+      </div>
+
+      <div class="api-notice" style="margin-top:12px">
+        🔑 <strong>네이버 API</strong>: <a href="https://developers.naver.com/apps/#/register" target="_blank">developers.naver.com</a> 에서 무료 발급<br>
+        🔑 <strong>Anthropic API</strong>: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+      </div>
+
+      <button class="save-btn" id="saveBtnKeys" style="margin-top:12px; width:100%">
+        설정 저장
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="section-label">연결 상태</div>
+      <div class="status-row">
+        <div class="dot" id="naverDot"></div>
+        <span id="naverStatus">Naver API — 미설정</span>
+      </div>
+      <div class="status-row" style="margin-top:8px">
+        <div class="dot" id="claudeDot"></div>
+        <span id="claudeStatus">Claude API — 미설정</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="section-label">SEO 옵션</div>
+      <div class="input-group">
+        <label>수집 블로그 수</label>
+        <select id="blogCount">
+          <option value="5">5개</option>
+          <option value="10" selected>10개</option>
+          <option value="15">15개</option>
+        </select>
+      </div>
+      <div class="input-group" style="margin-top:10px">
+        <label>글 길이</label>
+        <select id="articleLength">
+          <option value="short">표준 (~1,500자)</option>
+          <option value="medium" selected>심화 (~3,500자)</option>
+          <option value="long">프리미엄 (~5,000자)</option>
+        </select>
+      </div>
+      <div class="input-group" style="margin-top:10px">
+        <label>글 톤</label>
+        <select id="articleTone">
+          <option value="info">정보성 (중립)</option>
+          <option value="friendly">친근한 (블로그체)</option>
+          <option value="expert">전문가형</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="chat-area" id="chatArea">
+      <div class="welcome" id="welcome">
+        <h2>네이버 블로그 상위노출 글을<br><em>분석</em>해서 SEO 글을 만들어 드려요</h2>
+        <p>주제를 입력하면 네이버 블로그 상위 10개를 크롤링하고<br>Claude AI가 고품질 SEO 최적화 블로그 글을 작성합니다.</p>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="num">1</div> 주제 입력</div>
+          <div class="arrow-icon">→</div>
+          <div class="flow-step"><div class="num">2</div> 블로그 크롤링</div>
+          <div class="arrow-icon">→</div>
+          <div class="flow-step"><div class="num">3</div> AI 분석</div>
+          <div class="arrow-icon">→</div>
+          <div class="flow-step"><div class="num">4</div> SEO 글 생성</div>
+        </div>
+        <div class="sample-topics">
+          <div class="sample-chip" onclick="setSample('강남 맛집 추천')">강남 맛집 추천</div>
+          <div class="sample-chip" onclick="setSample('다이어트 식단 방법')">다이어트 식단 방법</div>
+          <div class="sample-chip" onclick="setSample('제주도 여행 코스')">제주도 여행 코스</div>
+          <div class="sample-chip" onclick="setSample('파이썬 독학 방법')">파이썬 독학 방법</div>
+          <div class="sample-chip" onclick="setSample('아기 이유식 시작 시기')">아기 이유식 시작 시기</div>
+          <div class="sample-chip" onclick="setSample('주식 입문 초보 가이드')">주식 입문 초보 가이드</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <input type="text" class="topic-input" id="topicInput" 
+          placeholder="블로그 글 주제를 입력하세요 (예: 강남 맛집 추천)">
+        <button class="send-btn" id="sendBtn">
+          글 생성하기 →
+        </button>
+      </div>
+      <div class="input-hint">// Enter 또는 버튼 클릭 · API 키를 먼저 설정해주세요</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+let keys = { naver_id: '', naver_secret: '', anthropic: '' };
+
+function saveKeys() {
+  keys.naver_id = document.getElementById('naverClientId').value.trim();
+  keys.naver_secret = document.getElementById('naverClientSecret').value.trim();
+  keys.anthropic = document.getElementById('anthropicKey').value.trim();
+
+  const nd = document.getElementById('naverDot');
+  const ns = document.getElementById('naverStatus');
+  const cd = document.getElementById('claudeDot');
+  const cs = document.getElementById('claudeStatus');
+
+  if (keys.naver_id && keys.naver_secret) {
+    nd.className = 'dot green'; ns.textContent = 'Naver API — 연결됨';
+  } else {
+    nd.className = 'dot red'; ns.textContent = 'Naver API — 미설정';
+  }
+  if (keys.anthropic) {
+    cd.className = 'dot green'; cs.textContent = 'Claude API — 연결됨';
+  } else {
+    cd.className = 'dot red'; cs.textContent = 'Claude API — 미설정';
+  }
+}
+
+function setSample(text) {
+  document.getElementById('topicInput').value = text;
+  document.getElementById('topicInput').focus();
+}
+
+function addMessage(role, content) {
+  const welcome = document.getElementById('welcome');
+  if (welcome) welcome.remove();
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+  div.innerHTML = `
+    <div class="msg-label">${role === 'user' ? '사용자' : 'SEO 작가'}</div>
+    <div class="msg-bubble">${content}</div>
+  `;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+  return div;
+}
+
+function addProgressCard(id) {
+  const welcome = document.getElementById('welcome');
+  if (welcome) welcome.remove();
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'message assistant';
+  div.id = id;
+  div.innerHTML = `
+    <div class="msg-label">SEO 작가</div>
+    <div class="progress-card">
+      <div class="progress-title">// 처리 중...</div>
+      <div class="progress-steps">
+        <div class="prog-step" id="${id}-s1">
+          <div class="step-icon">1</div>
+          <span>네이버 블로그 검색 중</span>
+        </div>
+        <div class="prog-step" id="${id}-s2">
+          <div class="step-icon">2</div>
+          <span>블로그 내용 크롤링 중</span>
+        </div>
+        <div class="prog-step" id="${id}-s3">
+          <div class="step-icon">3</div>
+          <span>컨텐츠 분석 중</span>
+        </div>
+        <div class="prog-step" id="${id}-s4">
+          <div class="step-icon">4</div>
+          <span>SEO 글 생성 중</span>
+        </div>
+      </div>
+    </div>
+  `;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+function setStep(id, step, status) {
+  const el = document.getElementById(`${id}-s${step}`);
+  if (!el) return;
+  el.className = `prog-step ${status}`;
+  const icon = el.querySelector('.step-icon');
+  if (status === 'done') icon.textContent = '✓';
+  else if (status === 'active') icon.textContent = '⟳';
+  else if (status === 'error') icon.textContent = '✗';
+}
+
+async function fetchNaverBlogs(query, count) {
+  const url = `https://openapi.naver.com/v1/search/blog.json?query=${encodeURIComponent(query)}&display=${count}&sort=sim`;
+  const proxyUrl = CORS_PROXY + encodeURIComponent(url);
+
+  const res = await fetch(proxyUrl, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  });
+
+  if (!res.ok) throw new Error('네이버 API 호출 실패');
+  const data = await res.json();
+  if (!data.items) throw new Error('검색 결과가 없습니다');
+  return data.items;
+}
+
+async function fetchBlogContent(link) {
+  try {
+    const proxyUrl = CORS_PROXY + encodeURIComponent(link);
+    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    // Remove scripts/styles
+    doc.querySelectorAll('script, style, nav, header, footer').forEach(e => e.remove());
+    // Try to get main content
+    const selectors = ['.se-main-container', '.post-view', '#postViewArea', '.blog-post', 'article', 'main', '.content'];
+    for (const sel of selectors) {
+      const el = doc.querySelector(sel);
+      if (el) {
+        const text = el.innerText || el.textContent;
+        if (text && text.length > 200) return text.slice(0, 3000);
+      }
+    }
+    const body = doc.body;
+    if (body) return (body.innerText || body.textContent || '').slice(0, 2000);
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function parseSections(text) {
+  const sections = { KEYWORDS: '', TITLES: '', SUMMARY: '', TOC: '', BODY: '' };
+  const keys = Object.keys(sections);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const start = text.indexOf(`===SECTION:${key}===`);
+    if (start === -1) continue;
+    const contentStart = start + `===SECTION:${key}===`.length;
+    const nextKey = keys[i + 1];
+    const end = nextKey ? text.indexOf(`===SECTION:${nextKey}===`) : text.length;
+    sections[key] = text.slice(contentStart, end === -1 ? text.length : end).trim();
+  }
+  // If no sections found (old format), put everything in BODY
+  if (!Object.values(sections).some(v => v.length > 0)) {
+    sections.BODY = text;
+  }
+  return sections;
+}
+
+function renderSEOArticle(article, sources, topic, wordCount, pid) {
+  const area = document.getElementById('chatArea');
+  const sections = parseSections(article);
+
+  // Sources card (only if sources available)
+  if (sources && sources.length > 0) {
+    const validSources = sources.filter(s => s.fetched);
+    if (validSources.length > 0) {
+      const srcDiv = document.createElement('div');
+      srcDiv.className = 'message assistant';
+      srcDiv.innerHTML = `
+        <div class="msg-label">참고 소스</div>
+        <div class="sources-card">
+          <div class="sources-title">// 크롤링 완료 — ${validSources.length}개 블로그</div>
+          ${validSources.slice(0, 8).map((s, i) => `
+            <div class="source-item">
+              <span class="source-num">${String(i+1).padStart(2,'0')}</span>
+              <div>
+                <div class="source-title">${s.title.replace(/<[^>]*>/g,'')}</div>
+                <div class="source-url">${s.link}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      area.appendChild(srcDiv);
+    }
+  }
+
+  const uid = 'seo_' + Date.now();
+
+  const tabDefs = [
+    { key: 'KEYWORDS', label: '키워드 분석', icon: '🔍' },
+    { key: 'TITLES',   label: '제목 5선',    icon: '✏️' },
+    { key: 'SUMMARY',  label: '요약',         icon: '📋' },
+    { key: 'TOC',      label: '목차',         icon: '📑' },
+    { key: 'BODY',     label: '본문',          icon: '📄' },
+  ].filter(t => sections[t.key] && sections[t.key].trim().length > 0);
+
+  const artDiv = document.createElement('div');
+  artDiv.className = 'message assistant';
+  artDiv.innerHTML = `
+    <div class="msg-label">생성된 SEO 글</div>
+    <div class="seo-output">
+      <div class="seo-toolbar">
+        <div class="seo-toolbar-left">
+          <div class="dot green"></div>
+          <span>SEO_ARTICLE — RCON/PIRA/QUMA/ALCON/GEO</span>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="copy-btn" onclick="copySection('${uid}')">본문 복사</button>
+          <button class="copy-btn" onclick="copyAll('${uid}')">전체 복사</button>
+        </div>
+      </div>
+
+      <div class="tab-bar" id="${uid}-tabs">
+        ${tabDefs.map((t, i) => `
+          <button class="tab-btn ${i===tabDefs.length-1?'active':''}" onclick="switchTab('${uid}','${t.key}',this)">
+            ${t.icon} ${t.label}
+          </button>
+        `).join('')}
+      </div>
+
+      ${tabDefs.map((t, i) => `
+        <div class="tab-panel ${i===tabDefs.length-1?'active':''}" id="${uid}-panel-${t.key}">
+          <div class="seo-content" id="${uid}-content-${t.key}">${t.key === 'BODY' ? formatMarkdown(sections[t.key]) : formatSection(t.key, sections[t.key])}</div>
+        </div>
+      `).join('')}
+
+      <div class="seo-meta">
+        <span class="meta-pill green">✓ RCON+GEO 최적화</span>
+        <span class="meta-pill green">✓ PIRA/QUMA/ALCON</span>
+        <span class="meta-pill blue">약 ${wordCount}자</span>
+        <span class="meta-pill orange">키워드: ${topic}</span>
+      </div>
+    </div>
+  `;
+  area.appendChild(artDiv);
+  area.scrollTop = area.scrollHeight;
+}
+
+function formatMarkdown(text) {
+  return text
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/gs, m => `<ul>${m}</ul>`)
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/^(?!<[hul])/gm, '')
+    .replace(/<\/p><p>/g, '</p>\n<p>');
+}
+
+function formatSection(key, text) {
+  if (key === 'TITLES') {
+    const lines = text.split('\n').filter(l => l.trim());
+    return lines.map(l => `<div style="padding:10px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--text);line-height:1.6;">${l.replace(/^[\d\.\-\*]\s*/,'')}</div>`).join('');
+  }
+  if (key === 'TOC') {
+    return `<div style="font-size:14px;line-height:2;">${text.replace(/\n/g,'<br>')}</div>`;
+  }
+  return `<div style="font-size:14px;line-height:1.9;white-space:pre-wrap;">${text}</div>`;
+}
+
+function switchTab(uid, key, btn) {
+  document.querySelectorAll(`#${uid}-tabs .tab-btn`).forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`[id^="${uid}-panel-"]`).forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`${uid}-panel-${key}`)?.classList.add('active');
+}
+
+function copySection(uid) {
+  const activePanel = document.querySelector(`[id^="${uid}-panel-"].active`);
+  const text = activePanel ? activePanel.innerText : '';
+  navigator.clipboard.writeText(text).then(() => showCopyFeedback(event.target));
+}
+
+function copyAll(uid) {
+  const panels = document.querySelectorAll(`[id^="${uid}-panel-"]`);
+  const text = Array.from(panels).map(p => p.innerText).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(() => showCopyFeedback(event.target));
+}
+
+function showCopyFeedback(btn) {
+  const orig = btn.textContent;
+  btn.textContent = '복사됨 ✓';
+  btn.style.color = 'var(--accent)';
+  btn.style.borderColor = 'var(--accent)';
+  setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+}
+
+function copyArticle(btn) {
+  const content = document.getElementById('seoContent');
+  const text = content ? content.innerText : '';
+  navigator.clipboard.writeText(text).then(() => showCopyFeedback(btn));
+}
+
+async function generateSEOArticle(topic, crawledContents) {
+  const length = document.getElementById('articleLength').value;
+  const tone = document.getElementById('articleTone').value;
+
+  const lengthMap = { short: '최소 1,500자 이상', medium: '최소 3,500자 이상', long: '최소 5,000자 이상' };
+  const toneMap = {
+    info: '정보성, 중립적이고 신뢰감 있는 전문가 톤',
+    friendly: '네이버 블로그 특유의 친근하고 부드러운 구어체 ("~했어요", "~더라고요")',
+    expert: '전문적이고 권위 있는, 깊이 있는 분석 중심 톤'
+  };
+
+  const contentSummary = crawledContents
+    .filter(Boolean)
+    .slice(0, 8)
+    .map((c, i) => `[블로그 ${i+1}]\n${c.slice(0, 700)}`)
+    .join('\n\n---\n\n');
+
+  const hasCrawled = contentSummary.trim().length > 0;
+
+  const SYSTEM_PROMPT = `당신은 네이버 블로그 최상위 노출 알고리즘(NextN Search, PIRA, QUMA, ALCON)과 인공지능 검색 최적화(GEO), 그리고 RCON 글쓰기 프레임워크를 완벽하게 통달한 '수석 프롬프트 엔지니어'이자 '최상위 블로그 콘텐츠 크리에이터'입니다. 네이버, 티스토리, 워드프레스 등 다중 플랫폼 환경에 맞춰 경제, 리빙, 여행 등 다양한 틈새 주제의 글을 완벽하게 작성합니다.`;
+
+  const prompt = `[주제]: ${topic}
+[글 길이]: ${lengthMap[length]}
+[글 톤]: ${toneMap[tone]}
+${hasCrawled ? `\n[참고한 네이버 상위 블로그 내용]:\n${contentSummary}\n` : ''}
+
+위 주제로 아래 <<작업 순서>>에 따라 단계별로 결과를 출력하세요.
+
+<<작업 순서>>
+반드시 아래 순서대로, 각 섹션을 명확한 구분선(===)으로 구분하여 출력하세요.
+
+===SECTION:KEYWORDS===
+1. 검색 의도 분석 및 키워드 추출
+- 검색자의 세분화된 의도 분석 (2~3문장)
+- 메인 키워드 (3개 이상): 목록으로 나열
+- 서브 키워드 (5개 이상): 목록으로 나열
+
+===SECTION:TITLES===
+2. SEO 최적화 제목 제안 (5개)
+- 검색자의 클릭을 유도하는 매력적인 제목 5개를 번호 없이 줄바꿈으로 나열
+
+===SECTION:SUMMARY===
+3. SEO 본문 요약 (350자 이상)
+본문의 핵심 내용을 350자 이상으로 요약 작성
+
+===SECTION:TOC===
+4. 목차 (HTML 북마크 구조)
+HTML 앵커 링크 형태로 목차 작성. 예: <a href="#section1">소제목</a>
+
+===SECTION:BODY===
+5. 본문 (${lengthMap[length]})
+아래 지침을 엄격히 준수하여 본문을 작성하세요:
+
+[알고리즘 최적화 지침]
+- NextN & PIRA: 검색자의 세분화된 검색 의도와 구체적인 관심사를 타겟팅하여 문맥 설계
+- QUMA (VLM 품질 평가): 본문 내용과 밀접하게 연관된 이미지 위치를 '[이미지 삽입 추천: 캡션 설명]' 형태로 명시
+- ALCON: 시의성 있는 최신 정보와 스테디 정보를 명확히 구분하여 배치
+- GEO & RCON: AI 크롤링에 최적화된 H2/H3 계층 구조 사용, 관련성(Relevance)과 독창성(Originality) 유지
+
+[어뷰징 방지 필수 지침]
+- 기계적인 키워드 도배 절대 금지, 유의어/동의어로 자연스럽게 대체
+- AI 정형화 말투 완전 배제 ("첫째, 둘째,", "~에 대해 알아보겠습니다" 사용 금지)
+- 기존 문서 단순 짜깁기 금지, 완전히 독창적으로 재해석하여 작성
+- 전체 톤앤매너: ${toneMap[tone]}
+- [인간 경험 필수 삽입]: 글의 도입부 또는 본문 적재적소에 일상생활, 재테크 경험, 육아, 주말부부의 현실적인 고민, 여행 준비 과정 등 실제 겪을 법한 구체적인 에피소드를 200자 이내로 생생하게 반드시 포함
+- 마크다운 형식 사용 (# 제목, ## H2 소제목, ### H3 소제목, **강조**)`;
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': keys.anthropic,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 8000,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': keys.anthropic,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 4000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error?.message || 'Claude API 오류');
+  }
+
+  const data = await response.json();
+  return data.content[0].text;
+}
+
+async function startProcess() {
+  const topic = document.getElementById('topicInput').value.trim();
+  if (!topic) return;
+
+  if (!keys.naver_id || !keys.naver_secret) {
+    addMessage('assistant', '<div class="error-msg">⚠️ 네이버 API 키를 먼저 설정하고 저장해주세요.</div>');
+    return;
+  }
+  if (!keys.anthropic) {
+    addMessage('assistant', '<div class="error-msg">⚠️ Anthropic API 키를 먼저 설정하고 저장해주세요.</div>');
+    return;
+  }
+
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
+  document.getElementById('topicInput').value = '';
+
+  addMessage('user', `📝 <strong>${topic}</strong>`);
+
+  const pid = 'prog_' + Date.now();
+  addProgressCard(pid);
+
+  try {
+    // Step 1: Search Naver
+    setStep(pid, 1, 'active');
+    const count = parseInt(document.getElementById('blogCount').value);
+    
+    let blogItems;
+    try {
+      blogItems = await fetchNaverBlogs(topic, count);
+    } catch (e) {
+      // CORS 프록시 실패시 대체 방법 안내
+      throw new Error('네이버 API 호출 실패: CORS 프록시 오류. 아래 "서버 배포 안내"를 참고하세요.');
+    }
+    setStep(pid, 1, 'done');
+
+    // Step 2: Crawl
+    setStep(pid, 2, 'active');
+    const crawledContents = [];
+    const sources = [];
+
+    for (let i = 0; i < blogItems.length; i++) {
+      const item = blogItems[i];
+      const content = await fetchBlogContent(item.link);
+      crawledContents.push(content || item.description?.replace(/<[^>]*>/g,'') || '');
+      sources.push({ ...item, fetched: !!content });
+    }
+    setStep(pid, 2, 'done');
+
+    // Step 3: Analyze
+    setStep(pid, 3, 'active');
+    await new Promise(r => setTimeout(r, 500));
+    setStep(pid, 3, 'done');
+
+    // Step 4: Generate
+    setStep(pid, 4, 'active');
+    const article = await generateSEOArticle(topic, crawledContents);
+    setStep(pid, 4, 'done');
+
+    // Remove progress card
+    document.getElementById(pid)?.remove();
+
+    // Render
+    const wordCount = article.replace(/\s/g,'').length;
+    renderSEOArticle(article, sources, topic, wordCount, pid);
+
+  } catch (err) {
+    setStep(pid, 1, 'error');
+    setStep(pid, 2, 'error');
+    setStep(pid, 3, 'error');
+    setStep(pid, 4, 'error');
+    
+    // Fallback: Claude만으로 생성
+    if (err.message.includes('CORS') || err.message.includes('네이버 API')) {
+      document.getElementById(pid)?.remove();
+      addMessage('assistant', `<div class="error-msg">
+        ⚠️ <strong>네이버 API CORS 오류</strong><br><br>
+        브라우저에서 직접 네이버 API를 호출할 수 없습니다 (CORS 제한).<br><br>
+        <strong>해결 방법:</strong><br>
+        1. <strong>Node.js 서버</strong>를 만들어 프록시로 사용 (권장)<br>
+        2. Chrome 확장프로그램으로 실행<br>
+        3. 아래 코드를 로컬 서버로 배포<br><br>
+        Anthropic API 키만으로 Claude가 직접 작성하는 버전으로 대체할까요?<br>
+        <button onclick="fallbackGenerate('${topic.replace(/'/g,"\\'")}')">→ Claude로 직접 생성하기</button>
+      </div>`);
+    } else {
+      document.getElementById(pid)?.remove();
+      addMessage('assistant', `<div class="error-msg">❌ 오류: ${err.message}</div>`);
+    }
+  }
+
+  sendBtn.disabled = false;
+}
+
+async function fallbackGenerate(topic) {
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
+
+  const pid = 'prog2_' + Date.now();
+  addProgressCard(pid);
+  setStep(pid, 1, 'done');
+  setStep(pid, 2, 'done');
+  setStep(pid, 3, 'active');
+
+  try {
+    const length = document.getElementById('articleLength').value;
+    const tone = document.getElementById('articleTone').value;
+    const lengthMap = { short: '800자 내외', medium: '1500자 내외', long: '2500자 내외' };
+    const toneMap = {
+      info: '정보성, 중립적이고 신뢰감 있는',
+      friendly: '친근하고 대화체인 블로그 스타일',
+      expert: '전문적이고 권위 있는'
+    };
+
+    const SYSTEM_PROMPT = `당신은 네이버 블로그 최상위 노출 알고리즘(NextN Search, PIRA, QUMA, ALCON)과 인공지능 검색 최적화(GEO), 그리고 RCON 글쓰기 프레임워크를 완벽하게 통달한 '수석 프롬프트 엔지니어'이자 '최상위 블로그 콘텐츠 크리에이터'입니다. 네이버, 티스토리, 워드프레스 등 다중 플랫폼 환경에 맞춰 경제, 리빙, 여행 등 다양한 틈새 주제의 글을 완벽하게 작성합니다.`;
+
+    const prompt = `[주제]: ${topic}
+[글 길이]: ${lengthMap[length]}
+[글 톤]: ${toneMap[tone]}
+
+<<작업 순서>> — 반드시 아래 순서대로 섹션 구분선(===)을 포함하여 출력하세요.
+
+===SECTION:KEYWORDS===
+1. 검색 의도 분석 및 키워드 추출
+- 검색자 세분화 의도 분석 (2~3문장)
+- 메인 키워드 (3개 이상)
+- 서브 키워드 (5개 이상)
+
+===SECTION:TITLES===
+2. SEO 최적화 제목 제안 (5개, 번호 없이 줄바꿈)
+
+===SECTION:SUMMARY===
+3. SEO 본문 요약 (350자 이상)
+
+===SECTION:TOC===
+4. 목차 (HTML 앵커 링크 구조)
+
+===SECTION:BODY===
+5. 본문 (${lengthMap[length]})
+- NextN & PIRA: 검색자의 세분화된 의도 타겟팅
+- QUMA: '[이미지 삽입 추천: 캡션]' 형태로 이미지 위치 명시
+- ALCON: 최신 정보와 스테디 정보 구분 배치
+- GEO & RCON: H2/H3 계층 구조, 관련성·독창성 유지
+- 키워드 도배 금지, AI 정형화 말투 완전 배제
+- 단순 짜깁기 금지, 완전 독창적 재해석
+- 전체 톤: ${toneMap[tone]}
+- 도입부 또는 본문에 실제 겪을 법한 인간 에피소드 200자 이내 삽입 필수
+- 마크다운 형식 (## H2, ### H3, **강조**)`;
+
+    const response2 = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': keys.anthropic,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 8000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response2.json();
+    const article = data.content[0].text;
+
+    setStep(pid, 3, 'done');
+    setStep(pid, 4, 'active');
+    setStep(pid, 4, 'done');
+    document.getElementById(pid)?.remove();
+
+    const wordCount = article.replace(/\s/g,'').length;
+    renderSEOArticle(article, [], topic, wordCount, pid);
+
+  } catch (err) {
+    document.getElementById(pid)?.remove();
+    addMessage('assistant', `<div class="error-msg">❌ ${err.message}</div>`);
+  }
+
+  sendBtn.disabled = false;
+}
+
+// Load saved keys
+(function() {
+  try {
+    const saved = sessionStorage.getItem('seo_keys');
+    if (saved) {
+      const k = JSON.parse(saved);
+      document.getElementById('naverClientId').value = k.naver_id || '';
+      document.getElementById('naverClientSecret').value = k.naver_secret || '';
+      document.getElementById('anthropicKey').value = k.anthropic || '';
+      Object.assign(keys, k);
+      saveKeys();
+    }
+  } catch {}
+})();
+
+// Save button event listener
+document.getElementById('saveBtnKeys').addEventListener('click', function() {
+  saveKeys();
+  this.textContent = '저장됨 ✓';
+  setTimeout(() => { this.textContent = '설정 저장'; }, 2000);
+});
+
+// Send button event listener  
+document.getElementById('sendBtn').addEventListener('click', startProcess);
+document.getElementById('topicInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startProcess();
+});
+document.querySelectorAll('#naverClientId,#naverClientSecret,#anthropicKey').forEach(el => {
+  el.addEventListener('change', () => {
+    try {
+      sessionStorage.setItem('seo_keys', JSON.stringify({
+        naver_id: document.getElementById('naverClientId').value,
+        naver_secret: document.getElementById('naverClientSecret').value,
+        anthropic: document.getElementById('anthropicKey').value
+      }));
+    } catch {}
+  });
+});
+</script>
+</body>
+</html>
