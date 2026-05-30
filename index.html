@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>네이버 블로그 SEO 작가</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:#0d0d0f;color:#e8e8ea;height:100vh;display:flex;flex-direction:column}
+header{padding:12px 20px;border-bottom:1px solid #2a2a2e;background:#141416;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{font-family:monospace;font-size:12px;color:#00e5a0;letter-spacing:2px}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(0,229,160,.12);color:#00e5a0;border:1px solid rgba(0,229,160,.3)}
+.app{display:grid;grid-template-columns:270px 1fr;flex:1;min-height:0}
+.sidebar{background:#141416;border-right:1px solid #2a2a2e;padding:16px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.sl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6b6b72;font-family:monospace;margin-bottom:2px}
+.ig{display:flex;flex-direction:column;gap:4px}
+.ig label{font-size:11px;color:#6b6b72}
+.ig input,.ig select{background:#1c1c1f;border:1px solid #2a2a2e;border-radius:6px;padding:8px 10px;color:#e8e8ea;font-size:11px;outline:none;width:100%}
+.ig input:focus,.ig select:focus{border-color:#00e5a0}
+.ig input::placeholder{color:#3d3d42}
+.divider{height:1px;background:#2a2a2e;flex-shrink:0}
+.srow{display:flex;align-items:center;gap:8px;font-size:11px;color:#6b6b72}
+.dot{width:6px;height:6px;border-radius:50%;background:#3d3d42;flex-shrink:0}
+.dot.g{background:#00e5a0;box-shadow:0 0 4px #00e5a0}
+.dot.r{background:#ff4757}
+.savebtn{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);color:#00e5a0;padding:9px;border-radius:7px;font-size:13px;cursor:pointer;width:100%;font-weight:500}
+.savebtn:hover{background:rgba(0,229,160,.2)}
+.catbadge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(0,153,255,.1);color:#0099ff;border:1px solid rgba(0,153,255,.2);font-family:monospace;margin-top:4px}
+.main{display:flex;flex-direction:column;overflow:hidden}
+.chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.welcome{margin:auto;text-align:center;max-width:420px;padding:30px 0}
+.welcome h2{font-size:20px;font-weight:300;line-height:1.5;margin-bottom:8px}
+.welcome h2 em{font-style:normal;color:#00e5a0;font-weight:700}
+.welcome p{font-size:12px;color:#6b6b72;line-height:1.7;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{background:#1c1c1f;border:1px solid #2a2a2e;border-radius:20px;padding:5px 12px;font-size:11px;color:#6b6b72;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:#00e5a0;color:#00e5a0}
+.msg{display:flex;flex-direction:column;gap:5px;max-width:680px}
+.msg.u{align-self:flex-end;align-items:flex-end}
+.msg.a{align-self:flex-start;align-items:flex-start}
+.ml{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#3d3d42;font-family:monospace}
+.mb{padding:11px 15px;border-radius:10px;font-size:13px;line-height:1.8}
+.msg.u .mb{background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);border-bottom-right-radius:3px}
+.msg.a .mb{background:#141416;border:1px solid #2a2a2e;border-bottom-left-radius:3px}
+.pc{background:#141416;border:1px solid #2a2a2e;border-radius:10px;padding:16px;max-width:360px}
+.pt{font-size:11px;color:#6b6b72;margin-bottom:12px;font-family:monospace}
+.ps{display:flex;flex-direction:column;gap:8px}
+.pst{display:flex;align-items:center;gap:8px;font-size:12px;color:#6b6b72;transition:color .3s}
+.pst.done{color:#00e5a0}.pst.act{color:#e8e8ea}.pst.err{color:#ff4757}
+.si{width:18px;height:18px;border-radius:50%;border:1.5px solid #3d3d42;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;transition:all .3s}
+.pst.done .si{border-color:#00e5a0;background:rgba(0,229,160,.15);color:#00e5a0}
+.pst.act .si{border-color:#0099ff;color:#0099ff;animation:pu 1.5s infinite}
+.pst.err .si{border-color:#ff4757;color:#ff4757}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
+.seo{background:#141416;border:1px solid #2a2a2e;border-radius:10px;overflow:hidden;max-width:680px;width:100%}
+.stb{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid #2a2a2e;background:#1c1c1f}
+.stbl{display:flex;align-items:center;gap:6px;font-size:10px;color:#6b6b72;font-family:monospace}
+.stbl .dot{width:7px;height:7px}
+.cb{background:transparent;border:1px solid #2a2a2e;color:#6b6b72;padding:3px 9px;border-radius:5px;font-size:10px;cursor:pointer}
+.cb:hover{border-color:#00e5a0;color:#00e5a0}
+.tabs{display:flex;border-bottom:1px solid #2a2a2e;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tb{background:transparent;border:none;border-bottom:2px solid transparent;color:#6b6b72;padding:8px 12px;font-size:11px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tb:hover{color:#e8e8ea}
+.tb.on{color:#00e5a0;border-bottom-color:#00e5a0}
+.tp{display:none}
+.tp.on{display:block}
+.sc{padding:16px 20px;font-size:13px;line-height:1.9;color:#e8e8ea;max-height:460px;overflow-y:auto;white-space:pre-wrap}
+.sc h1{font-size:17px;color:#00e5a0;margin-bottom:12px;font-weight:700}
+.sc h2{font-size:14px;color:#0099ff;margin:15px 0 8px;font-weight:500;border-left:3px solid #0099ff;padding-left:8px}
+.sc h3{font-size:13px;color:#ffa502;margin:12px 0 6px;font-weight:500}
+.sc p{margin-bottom:9px}.sc ul{padding-left:16px;margin-bottom:9px}.sc li{margin-bottom:4px}
+.sc strong{color:#fff;font-weight:700}
+.sm{display:flex;gap:6px;padding:9px 13px;border-top:1px solid #2a2a2e;background:#1c1c1f;flex-wrap:wrap}
+.mp{font-size:10px;padding:2px 8px;border-radius:20px;font-family:monospace}
+.mp.g{background:rgba(0,229,160,.1);color:#00e5a0;border:1px solid rgba(0,229,160,.2)}
+.mp.b{background:rgba(0,153,255,.1);color:#0099ff;border:1px solid rgba(0,153,255,.2)}
+.mp.o{background:rgba(255,165,2,.1);color:#ffa502;border:1px solid rgba(255,165,2,.2)}
+.mp.p{background:rgba(180,100,255,.1);color:#b464ff;border:1px solid rgba(180,100,255,.2)}
+.ia{padding:14px 20px;border-top:1px solid #2a2a2e;background:#141416;flex-shrink:0}
+.ir{display:flex;gap:8px}
+.ti{flex:1;background:#1c1c1f;border:1px solid #2a2a2e;border-radius:8px;padding:10px 14px;color:#e8e8ea;font-size:13px;outline:none;transition:border-color .2s}
+.ti:focus{border-color:#00e5a0}
+.ti::placeholder{color:#3d3d42}
+.gobtn{background:#00e5a0;color:#0d0d0f;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
+.gobtn:hover:not(:disabled){background:#00ffb3}
+.gobtn:disabled{background:#3d3d42;cursor:not-allowed}
+.ih{font-size:10px;color:#3d3d42;margin-top:5px;font-family:monospace}
+.em{background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:#ff4757;max-width:420px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">BLOG·SEO</div>
+  <div class="badge">NAVER × CLAUDE</div>
+</header>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sl">API 설정</div>
+    <div class="ig"><label>Naver Client ID</label><input type="text" id="nid" placeholder="네이버 Client ID" autocomplete="off"></div>
+    <div class="ig"><label>Naver Client Secret</label><input type="password" id="nsec" placeholder="네이버 Client Secret" autocomplete="off"></div>
+    <div class="ig"><label>Anthropic API Key</label><input type="password" id="akey" placeholder="sk-ant-..." autocomplete="off"></div>
+    <button class="savebtn" id="saveBtn">설정 저장</button>
+    <div class="divider"></div>
+    <div class="sl">연결 상태</div>
+    <div class="srow"><div class="dot" id="nd"></div><span id="ns">Naver API — 미설정</span></div>
+    <div class="srow"><div class="dot" id="cd"></div><span id="cs">Claude API — 미설정</span></div>
+    <div class="divider"></div>
+    <div class="sl">SEO 옵션</div>
+    <div class="ig"><label>수집 블로그 수</label><select id="bc"><option value="5">5개</option><option value="10" selected>10개</option><option value="15">15개</option></select></div>
+    <div class="ig"><label>글 길이</label><select id="al"><option value="short">표준 (~1,500자)</option><option value="medium" selected>심화 (~3,500자)</option><option value="long">프리미엄 (~5,000자)</option></select></div>
+    <div class="ig"><label>주제 카테고리</label>
+      <select id="cat">
+        <option value="auto">🤖 자동 감지</option>
+        <option value="economy">📈 경제/재테크/정책</option>
+        <option value="living">🛍️ 리빙/제품리뷰</option>
+        <option value="travel">✈️ 여행</option>
+        <option value="food">🍽️ 맛집</option>
+        <option value="general">📝 일반 정보</option>
+      </select>
+    </div>
+    <div class="ig"><label>출력 형식</label>
+      <select id="outfmt">
+        <option value="markdown">마크다운 (기본)</option>
+        <option value="html">HTML (네이버/워드프레스용)</option>
+      </select>
+    </div>
+    <div id="catInfo" class="catbadge" style="display:none"></div>
+  </aside>
+  <div class="main">
+    <div class="chat" id="chat">
+      <div class="welcome" id="welcome">
+        <h2>네이버 블로그 상위노출 글을<br><em>분석</em>해서 SEO 글을 만들어요</h2>
+        <p>주제 입력 → 카테고리 자동 감지 → 주제별 어조 적용 → 고품질 SEO 글 생성</p>
+        <div class="chips">
+          <div class="chip" data-s="강남 맛집 추천">🍽️ 강남 맛집 추천</div>
+          <div class="chip" data-s="청년희망적금 조건">📈 청년희망적금</div>
+          <div class="chip" data-s="제주도 여행 코스">✈️ 제주도 여행</div>
+          <div class="chip" data-s="에어프라이어 추천">🛍️ 에어프라이어 추천</div>
+          <div class="chip" data-s="아기 이유식 시작 시기">👶 아기 이유식</div>
+          <div class="chip" data-s="주식 입문 초보 가이드">💹 주식 입문</div>
+        </div>
+      </div>
+    </div>
+    <div class="ia">
+      <div class="ir">
+        <input type="text" class="ti" id="topic" placeholder="블로그 글 주제를 입력하세요">
+        <button class="gobtn" id="goBtn">글 생성 →</button>
+      </div>
+      <div class="ih">// Enter 또는 버튼 클릭 · API 키를 먼저 설정해주세요</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var K = {nid:'',nsec:'',ant:''};
+
+// ───────────────────────────────────────────
+// 주제별 어조 시스템
+// ───────────────────────────────────────────
+var TONE_SYSTEM = {
+  economy: {
+    label: '📈 경제/재테크/정책',
+    persona: '어려운 경제 지식을 독자의 눈높이에서 쉽게 풀어주는 친절하고 경험 많은 선배',
+    guide: [
+      '도입부: "요즘 물가 때문에 걱정 많으시죠? 저도 그렇답니다."처럼 독자의 페인포인트를 짚어주며 친근하게 시작',
+      '본문: 정책·법률·경제 지표 설명 시 신뢰감 있는 어미(~습니다, ~입니다)를 사용하되, 중간중간 (~해요, ~된답니다) 혼용',
+      '핵심 정보는 숫자/리스트로 정리하여 가독성 강화',
+      '마무리: "과연 이 대책은 누구를 위한 것일까요?" 같은 수사 의문문 또는 실생활 적용 팁으로 여운 남기기',
+      '절대 금지: 건조한 뉴스 기사체, "~다/~이다" 단정형 종결어미, 기계적 나열'
+    ]
+  },
+  living: {
+    label: '🛍️ 리빙/제품리뷰',
+    persona: '물건을 꼼꼼하게 따져보고 꿀템만 추천해 주는 똑똑한 소비자이자 친한 친구',
+    guide: [
+      '도입부: "이거 살까 말까 고민하셨던 분들 주목!"처럼 특정 제품 니즈를 정확히 저격',
+      '본문: "좋다"고만 하지 말고 어떤 점이 왜 좋은지 구체적으로 서술',
+      '직접 써본 경험 바탕으로 과거형(~했었습니다, ~였어요) 사용해 생생하게 전달',
+      '마무리: "이렇게 활용하면 더 좋아요!", "이런 분들께 강력 추천~!" 같은 꿀팁으로 마무리',
+      '구어체 종결어미 (~거든요, ~잖아요, ~더라고요) 80% 이상 사용'
+    ]
+  },
+  travel: {
+    label: '✈️ 여행',
+    persona: '숨겨진 명소와 여행 꿀팁을 아낌없이 공유하는 에너지 넘치는 여행 가이드',
+    guide: [
+      '도입부: "와우! 너무 놀라워요!", "정말 대단해요!" 같은 긍정적 감탄사로 설렘 표현',
+      '본문: 풍경과 분위기를 그림 그리듯 생생하게 묘사 + 주차/입장료/동선 정보 깔끔히 정리',
+      '1인칭 시점("제가", "저도", "제 생각엔") 활용하여 독자와 공감대 형성',
+      '마무리: "다음엔 부모님 모시고 와야겠어요!", "가을에 오면 풍경이 더 예술일 것 같아요!" 같은 다음 방문 기약 멘트',
+      '짧은 문장과 긴 문장 혼합, 단락 길이 의도적으로 불규칙하게 구성'
+    ]
+  },
+  food: {
+    label: '🍽️ 맛집',
+    persona: '맛있는 걸 먹으면 동네방네 소문내고 싶어 하는 미식가 친구',
+    guide: [
+      '도입부: "드디어 다녀왔습니다!", "여긴 무조건 가셔야 해요!"로 만족감 적극 표현',
+      '본문: "도우도 얇고 치즈 풍미 GOOD", "꿀 찍어 먹으면 꿀맛~ 단짠단짠"처럼 직관적 미각 표현 사용',
+      '시그니처 메뉴 특징 강력 어필, 직접 경험한 것처럼 과거형(~했었습니다, ~였어요) 사용',
+      '위치/운영시간/주차 등 실용 정보는 명확하고 간결하게 전달',
+      '마무리: "가시면 꼭 XX 메뉴에 OO 추가해서 드셔보세요!", "추천 안 할 수가 없네요!"',
+      '구어체(~거든요, ~잖아요, ~더라고요, ~랄까요?) 적극 활용'
+    ]
+  },
+  general: {
+    label: '📝 일반 정보',
+    persona: '독자의 고민을 깊이 공감하고 해결책을 친절하게 설명해 주는 경험 많은 선배',
+    guide: [
+      '도입부: 1인칭 시점으로 독자 페인포인트 공감 (~저도 안다, 제가 겪어봤다)',
+      '본문: 친근한 대화체(~요, ~죠, ~네요, ~까요?) 주로 사용',
+      '마무리: 수사 의문문 또는 행동 유도 따뜻한 격려',
+      '절대 금지: 기계적 나열, 건조한 문체, ~다/~이다 단정형',
+      '짧은 문장과 긴 문장 혼합하여 리듬감 있는 구조 유지'
+    ]
+  }
+};
+
+// 주제 자동 감지
+function detectCategory(topic) {
+  var t = topic.toLowerCase();
+  if (/적금|재테크|주식|투자|금리|대출|청년|정책|지원금|경제|물가|부동산|세금|연금|청약|도약|창업/.test(t)) return 'economy';
+  if (/맛집|식당|카페|먹|음식|메뉴|브런치|디저트|라멘|파스타|스테이크|치킨|피자|커피/.test(t)) return 'food';
+  if (/여행|관광|명소|코스|숙소|호텔|펜션|국내|해외|제주|부산|일본|유럽|공항|비행/.test(t)) return 'travel';
+  if (/추천|리뷰|구매|제품|템|청소기|에어프라이어|냉장고|가전|인테리어|리빙|가구|화장품|뷰티/.test(t)) return 'living';
+  return 'general';
+}
+
+function getCatTone(catKey) {
+  var t = TONE_SYSTEM[catKey];
+  if (!t) return '';
+  return '[페르소나]: ' + t.persona + '\n\n[어조 지침]:\n' + t.guide.map(function(g){return '- ' + g;}).join('\n');
+}
+
+function doSave() {
+  K.nid = document.getElementById('nid').value.trim();
+  K.nsec = document.getElementById('nsec').value.trim();
+  K.ant = document.getElementById('akey').value.trim();
+  document.getElementById('nd').className = 'dot ' + (K.nid&&K.nsec ? 'g' : 'r');
+  document.getElementById('ns').textContent = 'Naver API — ' + (K.nid&&K.nsec ? '연결됨' : '미설정');
+  document.getElementById('cd').className = 'dot ' + (K.ant ? 'g' : 'r');
+  document.getElementById('cs').textContent = 'Claude API — ' + (K.ant ? '연결됨' : '미설정');
+  try { sessionStorage.setItem('sk', JSON.stringify(K)); } catch(e) {}
+}
+
+function addM(r, h) {
+  var w = document.getElementById('welcome');
+  if (w) w.remove();
+  var c = document.getElementById('chat');
+  var d = document.createElement('div');
+  d.className = 'msg ' + (r==='u' ? 'u' : 'a');
+  d.innerHTML = '<div class="ml">'+(r==='u'?'사용자':'SEO 작가')+'</div><div class="mb">'+h+'</div>';
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function addP(id) {
+  var w = document.getElementById('welcome');
+  if (w) w.remove();
+  var c = document.getElementById('chat');
+  var d = document.createElement('div');
+  d.className = 'msg a'; d.id = id;
+  var h = '<div class="ml">SEO 작가</div><div class="pc"><div class="pt">// 처리 중...</div><div class="ps">';
+  ['카테고리 분석 & 어조 설정','키워드 & 검색의도 분석','SEO 구조 설계','고품질 글 생성'].forEach(function(s,i){
+    h += '<div class="pst" id="'+id+'-'+(i+1)+'"><div class="si">'+(i+1)+'</div><span>'+s+'</span></div>';
+  });
+  h += '</div></div>';
+  d.innerHTML = h;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function setS(id, n, st) {
+  var el = document.getElementById(id+'-'+n);
+  if (!el) return;
+  el.className = 'pst ' + st;
+  var ic = el.querySelector('.si');
+  ic.textContent = st==='done' ? '✓' : st==='act' ? '⟳' : st==='err' ? '✗' : String(n);
+}
+
+function pSec(text) {
+  var sec = {KEYWORDS:'',TITLES:'',SUMMARY:'',TOC:'',BODY:''};
+  var ks = Object.keys(sec);
+  for (var i=0; i<ks.length; i++) {
+    var k = ks[i], tag = '===SECTION:'+k+'===';
+    var s = text.indexOf(tag);
+    if (s === -1) continue;
+    var nk = ks[i+1];
+    var e = nk ? text.indexOf('===SECTION:'+nk+'===') : text.length;
+    sec[k] = text.slice(s+tag.length, e===-1 ? text.length : e).trim();
+  }
+  if (!Object.values(sec).some(function(v){return v.length>0;})) sec.BODY = text;
+  return sec;
+}
+
+function fMd(t) {
+  return t.replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/gs,function(m){return '<ul>'+m+'</ul>';})
+    .replace(/\n\n/g,'</p><p>');
+}
+
+function fSec(k, t) {
+  if (k==='TITLES') return t.split('\n').filter(function(l){return l.trim();})
+    .map(function(l){return '<div style="padding:8px 0;border-bottom:1px solid #2a2a2e;font-size:13px;color:#e8e8ea;line-height:1.6">'+l.replace(/^[\d\.\-\*]\s*/,'')+'</div>';}).join('');
+  if (k==='TOC') return '<div style="font-size:13px;line-height:2">'+t.replace(/\n/g,'<br>')+'</div>';
+  return '<div style="font-size:13px;line-height:1.9;white-space:pre-wrap">'+t+'</div>';
+}
+
+function swTab(uid, key, btn) {
+  document.querySelectorAll('#'+uid+'-tb .tb').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('[id^="'+uid+'-tp-"]').forEach(function(p){p.classList.remove('on');});
+  btn.classList.add('on');
+  var p = document.getElementById(uid+'-tp-'+key);
+  if (p) p.classList.add('on');
+}
+
+function cpTxt(uid, all) {
+  var txt = '';
+  if (all) {
+    txt = Array.from(document.querySelectorAll('[id^="'+uid+'-tp-"]')).map(function(p){return p.innerText;}).join('\n\n---\n\n');
+  } else {
+    var ap = document.querySelector('[id^="'+uid+'-tp-"].on');
+    txt = ap ? ap.innerText : '';
+  }
+  navigator.clipboard.writeText(txt).catch(function(){});
+}
+
+function renderR(article, topic, catLabel, outfmt) {
+  var chat = document.getElementById('chat');
+  var sec = pSec(article);
+  var uid = 'u' + Date.now();
+  var tabs = [{k:'KEYWORDS',l:'🔍 키워드'},{k:'TITLES',l:'✏️ 제목'},{k:'SUMMARY',l:'📋 요약'},{k:'TOC',l:'📑 목차'},{k:'BODY',l:'📄 본문'}]
+    .filter(function(t){return sec[t.k] && sec[t.k].trim().length>0;});
+  var ad = document.createElement('div');
+  ad.className = 'msg a';
+  var h = '<div class="ml">생성된 SEO 글</div><div class="seo">';
+  h += '<div class="stb"><div class="stbl"><div class="dot g"></div><span>RCON·PIRA·QUMA·ALCON·GEO</span></div>';
+  h += '<div style="display:flex;gap:4px"><button class="cb" onclick="cpTxt(\''+uid+'\',false)">탭 복사</button><button class="cb" onclick="cpTxt(\''+uid+'\',true)">전체 복사</button></div></div>';
+  h += '<div class="tabs" id="'+uid+'-tb">';
+  tabs.forEach(function(t,i){h += '<button class="tb'+(i===tabs.length-1?' on':'')+'" onclick="swTab(\''+uid+'\',\''+t.k+'\',this)">'+t.l+'</button>';});
+  h += '</div>';
+  tabs.forEach(function(t,i){h += '<div class="tp'+(i===tabs.length-1?' on':'')+'" id="'+uid+'-tp-'+t.k+'"><div class="sc">'+(t.k==='BODY'?fMd(sec[t.k]):fSec(t.k,sec[t.k]))+'</div></div>';});
+  h += '<div class="sm"><span class="mp g">✓ RCON+GEO</span><span class="mp p">'+catLabel+'</span><span class="mp b">약 '+article.replace(/\s/g,'').length+'자</span><span class="mp o">'+outfmt==='html'?'HTML출력':'MD출력'+'</span></div></div>';
+  ad.innerHTML = h;
+  chat.appendChild(ad);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function doGen() {
+  var topic = document.getElementById('topic').value.trim();
+  if (!topic) return;
+  if (!K.ant) { addM('a','<div class="em">⚠️ Anthropic API 키를 먼저 설정하고 저장해주세요.</div>'); return; }
+
+  var gb = document.getElementById('goBtn');
+  gb.disabled = true;
+  document.getElementById('topic').value = '';
+
+  // 카테고리 결정
+  var catSel = document.getElementById('cat').value;
+  var catKey = catSel === 'auto' ? detectCategory(topic) : catSel;
+  var catData = TONE_SYSTEM[catKey];
+  var catLabel = catData ? catData.label : '📝 일반';
+
+  addM('u','📝 <strong>'+topic+'</strong> <span style="font-size:11px;color:#6b6b72">'+catLabel+'</span>');
+
+  var pid = 'p' + Date.now();
+  addP(pid);
+
+  // Step 1: 카테고리 분석
+  setS(pid,1,'act');
+  await new Promise(function(r){setTimeout(r,300);});
+  setS(pid,1,'done');
+
+  // Step 2: 키워드 분석
+  setS(pid,2,'act');
+  await new Promise(function(r){setTimeout(r,200);});
+  setS(pid,2,'done');
+
+  try {
+    setS(pid,3,'act');
+    await new Promise(function(r){setTimeout(r,200);});
+    setS(pid,3,'done');
+    setS(pid,4,'act');
+
+    var lenMap = {short:'최소 1,500자 이상',medium:'최소 3,500자 이상',long:'최소 5,000자 이상'};
+    var len = document.getElementById('al').value;
+    var outfmt = document.getElementById('outfmt').value;
+    var toneGuide = getCatTone(catKey);
+
+    var sys = '당신은 네이버 블로그 최상위 노출 알고리즘(NextN Search, PIRA, QUMA, ALCON)과 인공지능 검색 최적화(GEO), RCON 글쓰기 프레임워크를 완벽하게 통달한 수석 블로그 콘텐츠 크리에이터입니다.\n\n' + toneGuide + '\n\n[공통 어조 필수 적용]\n- 기계적인 느낌 완전 배제, "제가", "저도", "제 생각엔" 등 1인칭 시점 사용\n- "~에요", "~해요", "~네요", "~랄까요?", "솔직히 말해서", "그니까요" 적극 활용\n- 짧은 문장과 긴 문장 혼합, 단락 길이 의도적으로 불규칙하게 구성\n- "~다 / ~이다" 형태의 단정형 종결어미 절대 사용 금지\n- 뉴스 기사처럼 건조하고 딱딱한 문체 절대 금지';
+
+    var bodyFormat = outfmt === 'html'
+      ? '- 출력 형식: HTML 코드로 작성 (h1, h2, h3, p, ul, li, strong 태그 사용, 네이버 블로그/워드프레스 바로 붙여넣기 가능)\n- <title>과 <meta description>에 메인 키워드 삽입\n- Yoast SEO / RankMath 최적화 구조'
+      : '- 출력 형식: 마크다운 (# ## ### **강조** - 리스트)';
+
+    var prompt = '[주제]: '+topic+'\n[카테고리]: '+catLabel+'\n[글 길이]: '+lenMap[len]+'\n\n반드시 아래 순서대로 섹션 구분선(===)을 포함하여 출력하세요.\n\n===SECTION:KEYWORDS===\n검색자 세분화 의도 분석 (4가지 유형으로 분류)\n메인 키워드 (3개 이상)\n서브 키워드 (10개 이상)\n\n===SECTION:TITLES===\nSEO 최적화 제목 5개 (클릭 유발, 구체적 수치 포함, 번호 없이 줄바꿈)\n\n===SECTION:SUMMARY===\n본문 핵심 요약 (350자 이상, 독자가 이 글을 읽어야 하는 이유 포함)\n\n===SECTION:TOC===\nHTML 앵커 링크 구조 목차 (대제목/소제목 계층 구조)\n\n===SECTION:BODY===\n본문 ('+lenMap[len]+')\n\n[알고리즘 최적화]\n- QUMA: [이미지 삽입 추천: 캡션] 형태로 본문 내 이미지 위치 명시\n- ALCON: 최신 정보와 스테디 정보 구분 배치\n- GEO & RCON: H2/H3 계층 구조, 관련성·독창성 유지\n- 키워드 도배 절대 금지 (유의어/동의어로 자연스럽게 대체)\n- AI 정형화 말투 완전 배제 ("첫째, 둘째", "~에 대해 알아보겠습니다" 금지)\n- 단순 짜깁기 금지, 완전 독창적 재해석\n- 도입부 또는 본문에 실제 인간 에피소드 200자 이내 삽입 필수\n'+bodyFormat;
+
+    var fetchResult = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': K.ant,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 8000,
+        system: sys,
+        messages: [{role:'user',content:prompt}]
+      })
+    });
+
+    if (!fetchResult.ok) {
+      var errData = await fetchResult.json();
+      throw new Error(errData.error && errData.error.message ? errData.error.message : 'API 오류');
+    }
+
+    var respData = await fetchResult.json();
+    var article = respData.content[0].text;
+    setS(pid,4,'done');
+    document.getElementById(pid).remove();
+    renderR(article, topic, catLabel, outfmt);
+
+  } catch(err) {
+    setS(pid,3,'err'); setS(pid,4,'err');
+    var pe = document.getElementById(pid);
+    if (pe) pe.remove();
+    addM('a','<div class="em">❌ 오류: '+err.message+'</div>');
+  }
+  gb.disabled = false;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('saveBtn').addEventListener('click', function() {
+    doSave();
+    this.textContent = '저장됨 ✓';
+    var self = this;
+    setTimeout(function(){ self.textContent = '설정 저장'; }, 2000);
+  });
+  document.getElementById('goBtn').addEventListener('click', doGen);
+  document.getElementById('topic').addEventListener('keydown', function(e){ if(e.key==='Enter') doGen(); });
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click', function(){ document.getElementById('topic').value = this.dataset.s; });
+  });
+
+  // 카테고리 자동감지 표시
+  document.getElementById('topic').addEventListener('input', function() {
+    var t = this.value.trim();
+    var catSel = document.getElementById('cat').value;
+    var info = document.getElementById('catInfo');
+    if (t.length > 2 && catSel === 'auto') {
+      var key = detectCategory(t);
+      var data = TONE_SYSTEM[key];
+      info.textContent = '감지: ' + data.label;
+      info.style.display = 'inline-block';
+    } else {
+      info.style.display = 'none';
+    }
+  });
+
+  try {
+    var sk = sessionStorage.getItem('sk');
+    if (sk) {
+      K = JSON.parse(sk);
+      document.getElementById('nid').value = K.nid || '';
+      document.getElementById('nsec').value = K.nsec || '';
+      document.getElementById('akey').value = K.ant || '';
+      doSave();
+    }
+  } catch(e) {}
+});
+</script>
+</body>
+</html>
